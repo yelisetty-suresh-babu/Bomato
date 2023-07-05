@@ -1,25 +1,47 @@
 import { ScrollView, View, Text, Image, TextInput } from "react-native";
-import React, { useLayoutEffect } from "react";
+import React, { useEffect, useLayoutEffect, useState } from "react";
 import { useNavigation } from "@react-navigation/native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import {
   UserIcon,
   ChevronDownIcon,
-  SearchIcon,
+  MagnifyingGlassIcon,
   AdjustmentsVerticalIcon,
 } from "react-native-heroicons/outline";
 import Categories from "../components/Categories";
+import FeaturedRow from "../components/FeaturedRow";
+// import sanityClient from "../sanity";
 
 const HomeScreen = () => {
   const navigation = useNavigation();
-
+  // const [featuredCategories, setFeaturedCategories] = useState([]);
   useLayoutEffect(() => {
     navigation.setOptions({
       headerShown: false,
     });
   }, []);
+
+  // useEffect(() => {
+  //   sanityClient
+  //     .fetch(
+  //       `
+  //   *[_type="featured"]{
+  //     ...,
+  //     restaurents[]->
+  //     {
+  //       ...,
+  //       dishes[]->
+       
+  //     }
+  //   }
+  //   `
+  //     )
+  //     .then((data) => setFeaturedCategories(data));
+  // }, []);
+
+  // console.log(data);
   return (
-    <SafeAreaView>
+    <SafeAreaView className="">
       <View className="bg-white  p-[-10px] pb-[-20px]">
         <View className="flex-row pb items-center space-x-2 mx-4 ">
           <Image
@@ -41,10 +63,11 @@ const HomeScreen = () => {
         {/* search */}
 
         <View className="flex-row items-center space-x-2 pb-2 mx-4 p-2">
-          <View className="flex-row p-3  flex-1 bg-gray-200">
+          <View className="flex-row p-3  flex-1 bg-gray-200 rounded-md">
+            <MagnifyingGlassIcon className="" size={20} color={"#00CCBB"} />
             <TextInput
-              placeholder="Find out the hot stuff"
-              keyboardType="default "
+              placeholder=" Find out the hot stuff"
+              // keyboardType="default"
             />
           </View>
           <AdjustmentsVerticalIcon color="#00CCBB" size={35} />
@@ -52,9 +75,39 @@ const HomeScreen = () => {
       </View>
 
       {/* Body */}
-
+      {/* Categories */}
       <ScrollView>
         <Categories />
+
+        {/* Featured rows */}
+        <FeaturedRow
+          id="123"
+          title="featured"
+          description="paid placements from our partners"
+        />
+        {/* Discounts */}
+
+        <FeaturedRow
+          id="1234"
+          title="Top Discounts"
+          description="Everyone likes good discount"
+        />
+        {/*  Offers near you */}
+        <FeaturedRow
+          id="12345"
+          title="offers near you "
+          description="support restaurents near you"
+        />
+        <FeaturedRow
+          id="12345"
+          title="offers near you "
+          description="support restaurents near you"
+        />
+        <FeaturedRow
+          id="12345"
+          title="offers near you "
+          description="support restaurents near you"
+        />
       </ScrollView>
     </SafeAreaView>
   );
